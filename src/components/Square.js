@@ -3,16 +3,17 @@ import PropTypes from 'prop-types';
 
 import './Square.css'
 
-const Square = (props) => {
+// Distruturing props
+const Square = ({ value, onClick}) => {
   // For Wave 1 enable this 
   //  Component to alert a parent 
   //  component when it's clicked on.
 
-  return <button
-    className="square"
-  >
-    {props.value}
-  </button>
+  return (
+    <button className="square" onClick={onClick}>
+      {value}
+    </button>
+  )
 }
 
 Square.propTypes = {
@@ -21,4 +22,4 @@ Square.propTypes = {
   id: PropTypes.number.isRequired,
 };
 
-export default Square
+export default Square;
