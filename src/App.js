@@ -42,21 +42,18 @@ const App = () => {
           
         if (filledSquare.id === id && filledSquare.value === '' && !winner) {
           filledSquare.value = currentPlayer;
-          updateStates(squaresCopy);
+
+          // Update states
+          setFilledSquareCount(filledSquareCount + 1);
+          setSquares(squaresCopy);
+          switchPlayer(currentPlayer);
+          setWinner(checkForWinner(squares));
           return;
         };
       }; 
     };
   };
 
-
-  // helper function for wave 2
-  const updateStates = (squaresCopy) => {
-    setFilledSquareCount(filledSquareCount + 1);
-    setSquares(squaresCopy);
-    switchPlayer(currentPlayer);
-    setWinner(checkForWinner(squares));
-  };
 
 
   // helper funciton for Wave 2 and Wave 4
@@ -109,7 +106,7 @@ const App = () => {
         <h2>{winner ? `The winner is ${winner}!!! 😊` : `Current Player ${currentPlayer}`} </h2>
         <button onClick={resetGame}>Reset Game</button>
       </header>
-      
+
       <main>
         <Board squares={squares} onClickCallback={handleSquareClick}/>
       </main>
