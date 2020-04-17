@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { generateSquares } from './components/GenerateSquares'
 import './App.css';
 
 import Board from './components/Board';
@@ -6,24 +7,17 @@ import Board from './components/Board';
 const PLAYER_1 = 'X';
 const PLAYER_2 = 'O';
 
-const generateSquares = () => {
-  const squares = [];
+const WINNING_LINES = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+];
 
-  let currentId = 0;
-
-  for (let row = 0; row < 3; row += 1) {
-    squares.push([]);
-    for (let col = 0; col < 3; col += 1) {
-      squares[row].push({
-        id: currentId,
-        value: '',
-      });
-      currentId += 1;
-    }
-  }
-
-  return squares;
-}
 
 const App = () => {
 
@@ -33,59 +27,49 @@ const App = () => {
   const [winner, setWinner] = useState(null);
   
 
-
   // Wave 2
   // You will need to create a method to change the square 
   // When it is clicked on.
   // Then pass it into the squares as a callback
-
   const handleSquareClick = (id) => {
     const squaresCopy = [...squares] // same as clone in Ruby (spread operator)
-    // console.log('squaresCopy!!', squaresCopy);
 
     for(let row in squaresCopy) {
       for(let col in squaresCopy) {
         let filledSquare = squaresCopy[row][col];
 
-        // if a user click a filled square or if game is won, return!
-        if (winner || filledSquareCount === 9) {  // TODO
-          return;
-        }
-
+        if (winner || filledSquareCount === 9) return;  // TODO
+          
         if (filledSquare.id === id && filledSquare.value === '' && !winner) {
-
           filledSquare.value = currentPlayer;
-          setFilledSquareCount(filledSquareCount + 1);
-          setSquares(squaresCopy);
-          switchPlayer(currentPlayer);
-          setWinner(checkForWinner(squares));
+          updateStates(squaresCopy);
           return;
-        }
-      }  
-    }
-  }
+        };
+      }; 
+    };
+  };
 
-  // helper funciton
+
+  // helper function for wave 2
+  const updateStates = (squaresCopy) => {
+    setFilledSquareCount(filledSquareCount + 1);
+    setSquares(squaresCopy);
+    switchPlayer(currentPlayer);
+    setWinner(checkForWinner(squares));
+  };
+
+
+  // helper funciton for Wave 2 and Wave 4
   const switchPlayer = (player) => {
     player === PLAYER_1 ? setCurrentPlayer(PLAYER_2) : setCurrentPlayer(PLAYER_1);
-  }
+  };
 
 
   const checkForWinner = () => {
     // Complete in Wave 3
-    const winningLines = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6],
-    ];
-
-    for(let i in winningLines) {
-      const [a, b, c] = winningLines[i]  // Distructuring
+    
+    for(let i in WINNING_LINES) {
+      const [a, b, c] = WINNING_LINES[i]  // Distructuring
 
       const squareValues = getSquareValues();
 
@@ -94,9 +78,10 @@ const App = () => {
       };
     };
     return null;
-  }
+  };
 
-  // helper function
+
+  // helper function for Wave 3
   const getSquareValues = () => {
     const squareValues = [];
 
@@ -105,7 +90,7 @@ const App = () => {
     });
 
     return squareValues;
-  }
+  };
 
 
   const resetGame = () => {
@@ -114,7 +99,8 @@ const App = () => {
     setSquares(generateSquares());
     setFilledSquareCount(0);
     setWinner(null);
-  }
+  };
+
 
   return (
     <div className="App">
@@ -123,11 +109,12 @@ const App = () => {
         <h2>{winner ? `The winner is ${winner}!!! 😊` : `Current Player ${currentPlayer}`} </h2>
         <button onClick={resetGame}>Reset Game</button>
       </header>
+      
       <main>
         <Board squares={squares} onClickCallback={handleSquareClick}/>
       </main>
     </div>
   );
-}
+};
 
 export default App;

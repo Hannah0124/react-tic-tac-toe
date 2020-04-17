@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 
 const generateSquareComponents = (squares, onClickCallback) => {
   // Complete this for Wave 1
-  // console.log("generate squares ", squares);
   const flattenSquares = squares.flat();
 
   return flattenSquares.map(square => {
