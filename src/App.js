@@ -34,10 +34,10 @@ const App = () => {
   
 
 
-   // Wave 2
+  // Wave 2
   // You will need to create a method to change the square 
-  //   When it is clicked on.
-  //   Then pass it into the squares as a callback
+  // When it is clicked on.
+  // Then pass it into the squares as a callback
 
   const handleSquareClick = (id) => {
     const squaresCopy = [...squares] // same as clone in Ruby (spread operator)
@@ -48,17 +48,16 @@ const App = () => {
         let filledSquare = squaresCopy[row][col];
 
         // if a user click a filled square or if game is won, return!
-        if (winner || filledSquareCount === 9) {
+        if (winner || filledSquareCount === 9) {  // TODO
           return;
         }
 
-        // console.log('filledSquare', filledSquare);
-
         if (filledSquare.id === id && filledSquare.value === '' && !winner) {
+
           filledSquare.value = currentPlayer;
           setFilledSquareCount(filledSquareCount + 1);
           setSquares(squaresCopy);
-          switchPlayer();
+          switchPlayer(currentPlayer);
           setWinner(checkForWinner(squares));
           return;
         }
@@ -67,8 +66,8 @@ const App = () => {
   }
 
   // helper funciton
-  const switchPlayer = () => {
-    currentPlayer === PLAYER_1 ? setCurrentPlayer(PLAYER_2) : setCurrentPlayer(PLAYER_1);
+  const switchPlayer = (player) => {
+    player === PLAYER_1 ? setCurrentPlayer(PLAYER_2) : setCurrentPlayer(PLAYER_1);
   }
 
 
@@ -88,13 +87,7 @@ const App = () => {
     for(let i in winningLines) {
       const [a, b, c] = winningLines[i]  // Distructuring
 
-      // const squareValues = squares.map(square => {
-      //   return [square[0].value, square[1].value, square[2].value];
-      // });
-
       const squareValues = getSquareValues();
-
-      
 
       if (squareValues[a] && squareValues[a] === squareValues[b] && squareValues[b] === squareValues[c]) {
         return squareValues[a]; 
@@ -115,20 +108,12 @@ const App = () => {
   }
 
 
-  // test
-  const someSquares = [
-    "", "", "",
-    'X', 'X', 'X',
-    "", "", ""
-  ]; 
-
-  // console.log('click!');
-  // console.log(handleSquareClick());
-
-  console.log("check!", checkForWinner(someSquares));
-
   const resetGame = () => {
     // Complete in Wave 4
+    switchPlayer(winner);
+    setSquares(generateSquares());
+    setFilledSquareCount(0);
+    setWinner(null);
   }
 
   return (
@@ -136,7 +121,7 @@ const App = () => {
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
         <h2>{winner ? `The winner is ${winner}!!! 😊` : `Current Player ${currentPlayer}`} </h2>
-        <button>Reset Game</button>
+        <button onClick={resetGame}>Reset Game</button>
       </header>
       <main>
         <Board squares={squares} onClickCallback={handleSquareClick}/>
