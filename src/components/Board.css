@@ -1,27 +1,27 @@
 div.grid {
-    width: 600px;
-    height: 600px;
-    margin: 0 auto;
-    background-color: #34495e;
-    color: #fff;
-    border: 6px solid #2c3e50;
-    border-radius: 10px;
-    display: grid;
-    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  width: 600px;
+  height: 600px;
+  margin: 0 auto;
+  background-color: #34495e;
+  color: #fff;
+  border: 6px solid #2c3e50;
+  border-radius: 10px;
+  display: grid;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
 }
 
 
 /* responsive design */
 @media screen and (max-width: 900px) {
-    div.grid {
-        width: 500px;
-        height: 500px;
-    }
+  div.grid {
+    width: 500px;
+    height: 500px;
+  }
 }
 
 @media screen and (max-width: 600px) {
-    div.grid {
-        width: 400px;
-        height: 400px;
-    }
+  div.grid {
+    width: 400px;
+    height: 400px;
+  }
 }

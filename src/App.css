@@ -63,8 +63,7 @@
   border: 5px solid rgb(224, 222, 222);
   padding: 5px; 
   border-radius: 8px;
-  margin: 30px 20px;
-  margin-left: 100px;
+  margin: 50px 20px 50px 100px;
 }
 
 
@@ -77,7 +76,7 @@ h4, h5, .score-number {
 }
 
 /* responsive design */
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1000px) {
   .header-container {
     flex-direction: column;
   }
