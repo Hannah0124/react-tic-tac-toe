@@ -64,8 +64,8 @@ const App = () => {
   const checkForWinner = () => {
     // Complete in Wave 3
     
-    for(let i in WINNING_LINES) {
-      const [a, b, c] = WINNING_LINES[i]  // Distructuring
+    for(let idx in WINNING_LINES) {
+      const [a, b, c] = WINNING_LINES[idx]  // Distructuring
 
       const squareValues = getSquareValues();
 
@@ -93,7 +93,7 @@ const App = () => {
   // When it's a tie, display "everyone is a winner!".
   const isTie = () => {
     if (filledSquareCount === 9 && !winner) {
-      return setWinner("everyone");
+      return "everyone";
     };
   }
 
@@ -111,13 +111,18 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>{`Current Player ${currentPlayer}`} </h2>
 
-        <h2 id="winner-result" className={!winner ? 'hidden' : 'block'}>
+        <h2 className={winner || isTie() ? 'hidden' : 'block'}>
+          {`Current Player ${currentPlayer}`}
+        </h2>
+
+        <h2 className={!winner && !isTie() ? 'hidden' : 'block'}>
           {isTie() ? isTie() : winner} is a winner! 😊 
         </h2>
 
-        <button className="cool-button" onClick={resetGame}>Reset Game</button>
+        <button className="cool-button" onClick={resetGame}>
+          Reset Game
+        </button>
       </header>
 
       <main>
