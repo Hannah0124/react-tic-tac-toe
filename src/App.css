@@ -12,5 +12,39 @@
   font-size: calc(10px + 2vmin);
   color: white;
   margin-bottom: 2em;
+  padding-bottom: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+#winner-result {
+  margin-top: 0px;
+}
+
+/* Button design reference: https://codepen.io/Katiae/pen/wdXpOY */
+.cool-button {
+  width: 200px;
+  color: #fff;
+  text-align: center;
+  font-weight: 800;
+  font-size: 0.7em;
+  text-transform: uppercase;
+  border-radius: 6px;
+  border: 0px;
+  margin: 10px;
+  padding: 1em 3em;
+  background-size: 200% auto;
+  background-image: linear-gradient(to right, #895cf2 0%, #ffabf4 50%, #895cf2 100%);
+  transition: 0.5s;
+}
+
+.cool-button:hover {
+  background-position: right center;
 }
 

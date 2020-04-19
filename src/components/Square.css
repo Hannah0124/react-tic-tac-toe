@@ -1,10 +1,9 @@
-.square
-{
+.square {
   border: 4px solid #2c3e50;
   border-radius: 2px;
   font-family: Helvetica;
   font-weight: bold;
-  font-size: 8em;
+  font-size: 6em;
   display: flex;
   justify-content: center;
   align-items: center;
