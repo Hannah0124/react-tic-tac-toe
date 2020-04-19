@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { generateSquares } from './components/GenerateSquares'
 import './App.css';
-
 import Board from './components/Board';
 
 const PLAYER_1 = 'X';
@@ -47,7 +46,7 @@ const App = () => {
           setFilledSquareCount(filledSquareCount + 1);
           setSquares(squaresCopy);
           switchPlayer(currentPlayer);
-          setWinner(checkForWinner(squares));
+          setWinner(checkForWinner());
           return;
         };
       }; 
@@ -89,6 +88,15 @@ const App = () => {
     return squareValues;
   };
 
+  
+  // helper function for Wave 3 (setting a tie)
+  // When it's a tie, display "everyone is a winner!".
+  const isTie = () => {
+    if (filledSquareCount === 9 && !winner) {
+      return setWinner("everyone");
+    };
+  }
+
 
   const resetGame = () => {
     // Complete in Wave 4
@@ -103,8 +111,13 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <h1>React Tic Tac Toe</h1>
-        <h2>{winner ? `The winner is ${winner}!!! 😊` : `Current Player ${currentPlayer}`} </h2>
-        <button onClick={resetGame}>Reset Game</button>
+        <h2>{`Current Player ${currentPlayer}`} </h2>
+
+        <h2 id="winner-result" className={!winner ? 'hidden' : 'block'}>
+          {isTie() ? isTie() : winner} is a winner! 😊 
+        </h2>
+
+        <button className="cool-button" onClick={resetGame}>Reset Game</button>
       </header>
 
       <main>
