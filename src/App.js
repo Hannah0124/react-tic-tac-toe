@@ -43,16 +43,21 @@ const App = () => {
           filledSquare.value = currentPlayer;
 
           // Update states
-          setFilledSquareCount(filledSquareCount + 1);
-          setSquares(squaresCopy);
-          switchPlayer(currentPlayer);
-          setWinner(checkForWinner());
+          updateStates(squaresCopy);
           return;
         };
       }; 
     };
   };
 
+  
+  // helper funciton for Wave 2
+  const updateStates = (squaresCopy) => {
+    setFilledSquareCount(filledSquareCount + 1);
+    setSquares(squaresCopy);
+    switchPlayer(currentPlayer);
+    setWinner(checkForWinner());
+  };
 
 
   // helper funciton for Wave 2 and Wave 4
@@ -65,7 +70,7 @@ const App = () => {
     // Complete in Wave 3
     
     for(let idx in WINNING_LINES) {
-      const [a, b, c] = WINNING_LINES[idx]  // Distructuring
+      const [a, b, c] = WINNING_LINES[idx];  // Distructuring
 
       const squareValues = getSquareValues();
 
