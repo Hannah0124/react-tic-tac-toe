@@ -20,15 +20,15 @@ const WINNING_LINES = [
 
 const App = () => {
 
-  const [squares, setSquares] = useState(generateSquares());
-  const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
-  const [filledSquareCount, setFilledSquareCount] = useState(0);
-  const [winner, setWinner] = useState(null);
-
   const points = {
     player1: 0,
     player2: 0
   }
+
+  const [squares, setSquares] = useState(generateSquares());
+  const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
+  const [filledSquareCount, setFilledSquareCount] = useState(0);
+  const [winner, setWinner] = useState(null);
   const [score, setScore] = useState(points)
   
 
@@ -48,8 +48,7 @@ const App = () => {
         if (filledSquare.id === id && filledSquare.value === '' && !winner) {
           filledSquare.value = currentPlayer;
 
-          // Update states
-          updateStates(squaresCopy);
+          updateStates(squaresCopy); // Update states
           return;
         };
       }; 
@@ -108,7 +107,7 @@ const App = () => {
     if (filledSquareCount === 9 && !winner) {
       return "everyone";
     };
-  }
+  };
 
   // helper function for Wave 3
   const updateScoreState = (value) => {
@@ -138,7 +137,7 @@ const App = () => {
     setScore({
       player1: 0,
       player2: 0
-    })
+    });
   };
 
   const printPlayerName = value => {
@@ -146,13 +145,14 @@ const App = () => {
       return 'Player 1 (X)';
     } else {
       return 'Player 2 (O)';
-    }
-  }
+    };
+  };
 
 
   return (
     <div className="App">
       <header className="App-header">
+
         <div className="header-container">
           <h1>React Tic Tac Toe</h1>
           <div className="score-chart">
@@ -162,7 +162,6 @@ const App = () => {
           </div>
         </div>
         
-
         <h3 className={winner || isTie() ? 'hidden' : 'block'}>
           Who's turn? {printPlayerName(currentPlayer)}
         </h3>
@@ -180,6 +179,7 @@ const App = () => {
             Reset Scores
           </button>
         </div>
+
       </header>
 
       <main>
