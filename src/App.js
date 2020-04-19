@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { generateSquares } from './components/GenerateSquares'
+import { generateSquares } from './components/helper'
 import './App.css';
 import Board from './components/Board';
 
@@ -24,6 +24,12 @@ const App = () => {
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
   const [filledSquareCount, setFilledSquareCount] = useState(0);
   const [winner, setWinner] = useState(null);
+
+  const points = {
+    player1: 0,
+    player2: 0
+  }
+  const [score, setScore] = useState(points)
   
 
   // Wave 2
@@ -50,7 +56,7 @@ const App = () => {
     };
   };
 
-  
+
   // helper funciton for Wave 2
   const updateStates = (squaresCopy) => {
     setFilledSquareCount(filledSquareCount + 1);
@@ -75,6 +81,8 @@ const App = () => {
       const squareValues = getSquareValues();
 
       if (squareValues[a] && squareValues[a] === squareValues[b] && squareValues[b] === squareValues[c]) {
+
+        updateScoreState(squareValues[a]); // set scores
         return squareValues[a]; 
       };
     };
@@ -90,7 +98,7 @@ const App = () => {
       squareValues.push(square[0].value, square[1].value, square[2].value);
     });
 
-    return squareValues;
+    return squareValues; // e.g. ["X", "O", "X", "X", "", "" ....]
   };
 
   
@@ -102,32 +110,76 @@ const App = () => {
     };
   }
 
+  // helper function for Wave 3
+  const updateScoreState = (value) => {
+    if (value === PLAYER_1) {
+      setScore({
+        player1: score.player1 + 1,
+        player2: score.player2
+      });
+    } else {
+      setScore({
+        player1: score.player1,
+        player2: score.player2 + 1
+      });
+    };
+  };
+
 
   const resetGame = () => {
     // Complete in Wave 4
-    switchPlayer(winner);
+    switchPlayer(winner);  // The first player would be loser from the previous game
     setSquares(generateSquares());
     setFilledSquareCount(0);
     setWinner(null);
   };
 
+  const resetScores = () => {
+    setScore({
+      player1: 0,
+      player2: 0
+    })
+  };
+
+  const printPlayerName = value => {
+    if (value === PLAYER_1) {
+      return 'Player 1 (X)';
+    } else {
+      return 'Player 2 (O)';
+    }
+  }
+
 
   return (
     <div className="App">
       <header className="App-header">
-        <h1>React Tic Tac Toe</h1>
+        <div className="header-container">
+          <h1>React Tic Tac Toe</h1>
+          <div className="score-chart">
+            <h4>Scores</h4>
+            <h5>Player1 <span role="img" aria-label="vs">🆚</span> Player2 </h5>
+            <p className="score-number">{score.player1} - {score.player2}</p>
+          </div>
+        </div>
+        
 
-        <h2 className={winner || isTie() ? 'hidden' : 'block'}>
-          {`Current Player ${currentPlayer}`}
-        </h2>
+        <h3 className={winner || isTie() ? 'hidden' : 'block'}>
+          Who's turn? {printPlayerName(currentPlayer)}
+        </h3>
 
-        <h2 className={!winner && !isTie() ? 'hidden' : 'block'}>
-          {isTie() ? isTie() : winner} is a winner! 😊 
-        </h2>
+        <h3 className={!winner && !isTie() ? 'hidden' : 'block'}>
+          {isTie() ? isTie() : printPlayerName(winner)} is a winner! 😊 
+        </h3>
 
-        <button className="cool-button" onClick={resetGame}>
-          Reset Game
-        </button>
+        <div className="button-container">
+          <button className="purple-button button" onClick={resetGame}>
+            Reset Game
+          </button>
+
+          <button className="blue-button button" onClick={resetScores}>
+            Reset Scores
+          </button>
+        </div>
       </header>
 
       <main>
