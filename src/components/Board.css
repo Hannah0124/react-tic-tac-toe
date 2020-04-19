@@ -9,3 +9,19 @@ div.grid {
     display: grid;
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
 }
+
+
+/* responsive design */
+@media screen and (max-width: 900px) {
+    div.grid {
+        width: 500px;
+        height: 500px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    div.grid {
+        width: 400px;
+        height: 400px;
+    }
+}
