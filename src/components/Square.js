@@ -6,15 +6,15 @@ import './Square.css'
 // Distructuring props
 const Square = ({id, value, onClickCallback}) => {
   // For Wave 1 enable this 
-  //  Component to alert a parent 
-  //  component when it's clicked on.
+  // Component to alert a parent 
+  // component when it's clicked on.
 
   return (
-    <button className="square" onClick={() => onClickCallback(id) }>
+    <button className="square" onClick={() => onClickCallback(id)}>
       {value}
     </button>
-  )
-}
+  );
+};
 
 Square.propTypes = {
   value: PropTypes.string.isRequired,

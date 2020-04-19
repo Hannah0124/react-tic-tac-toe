@@ -16,9 +16,9 @@ const generateSquareComponents = (squares, onClickCallback) => {
         value={square.value} 
         onClickCallback={onClickCallback}
       />
-    )
-  })
-}
+    );
+  });
+};
 
 const Board = ({ squares, onClickCallback }) => {
   const squareList = generateSquareComponents(squares, onClickCallback);
@@ -29,8 +29,8 @@ const Board = ({ squares, onClickCallback }) => {
     <div className="grid" >
       {squareList}
     </div>
-  )
-}
+  );
+};
 
 Board.propTypes = {
   squares: PropTypes.arrayOf(
