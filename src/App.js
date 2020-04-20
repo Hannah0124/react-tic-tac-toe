@@ -20,16 +20,14 @@ const WINNING_LINES = [
 
 const App = () => {
 
-  const points = {
-    player1: 0,
-    player2: 0
-  }
-
   const [squares, setSquares] = useState(generateSquares());
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
   const [filledSquareCount, setFilledSquareCount] = useState(0);
   const [winner, setWinner] = useState(null);
-  const [score, setScore] = useState(points)
+  const [score, setScore] = useState({
+    player1: 0,
+    player2: 0
+  });
   
 
   // Wave 2
@@ -43,7 +41,7 @@ const App = () => {
       for(let col in squaresCopy) {
         let filledSquare = squaresCopy[row][col];
 
-        if (winner || filledSquareCount === 9) return;  // TODO
+        if (winner) return;  
           
         if (filledSquare.id === id && filledSquare.value === '' && !winner) {
           filledSquare.value = currentPlayer;
@@ -56,7 +54,7 @@ const App = () => {
   };
 
 
-  // helper funciton for Wave 2
+  // helper function for Wave 2
   const updateStates = (squaresCopy) => {
     setFilledSquareCount(filledSquareCount + 1);
     setSquares(squaresCopy);
@@ -65,7 +63,7 @@ const App = () => {
   };
 
 
-  // helper funciton for Wave 2 and Wave 4
+  // helper function for Wave 2 and Wave 4
   const switchPlayer = (player) => {
     player === PLAYER_1 ? setCurrentPlayer(PLAYER_2) : setCurrentPlayer(PLAYER_1);
   };
@@ -75,7 +73,7 @@ const App = () => {
     // Complete in Wave 3
     
     for(let idx in WINNING_LINES) {
-      const [a, b, c] = WINNING_LINES[idx];  // Distructuring
+      const [a, b, c] = WINNING_LINES[idx];  // Destructuring
 
       const squareValues = getSquareValues();
 
@@ -102,10 +100,10 @@ const App = () => {
 
   
   // helper function for Wave 3 (setting a tie)
-  // When it's a tie, display "everyone is a winner!".
+  // When it's a tie, display "Everyone is a winner!".
   const isTie = () => {
     if (filledSquareCount === 9 && !winner) {
-      return "everyone";
+      return "Everyone";
     };
   };
 
@@ -138,6 +136,8 @@ const App = () => {
       player1: 0,
       player2: 0
     });
+
+    resetGame();
   };
 
   const printPlayerName = value => {
