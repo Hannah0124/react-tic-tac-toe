@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './Square.css'
 
-// Distructuring props
+// Destructuring props
 const Square = ({id, value, onClickCallback}) => {
   // For Wave 1 enable this 
   // Component to alert a parent 
