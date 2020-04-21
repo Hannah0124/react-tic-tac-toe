@@ -125,7 +125,8 @@ const App = () => {
 
   const resetGame = () => {
     // Complete in Wave 4
-    switchPlayer(winner);  // The first player would be loser from the previous game
+    // The person who lost the previous game will make the first move in the new game
+    switchPlayer(winner);  
     setSquares(generateSquares());
     setFilledSquareCount(0);
     setWinner(null);
